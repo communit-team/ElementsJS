@@ -12,6 +12,13 @@ Javascript functionality, without adding any middleware components.
 - Supports chaining method calls
 - Simplifies event-listener management
 - Works with any JS flavor or library
+- Easily Extensible
+
+## Usage
+
+```
+<script src="https://cdn.jsdelivr.net/gh/communit-team/ElementsJS@main/dist/elements.min.js"></script>
+```
 
 ## Examples
 
@@ -62,4 +69,36 @@ El('.title', $el)
  
 // query title in body
 El('.title')
+```
+
+##### Use with Vanilla JS
+
+```
+// create a pure JS element
+let $el = document.createElement('div')
+ 
+// create an ElementsJS element
+let $title = Span().addClass('title').html('My Title');
+
+// apply ElementJS methods and elements to vanilla JS
+$el.html($title).addClass('some-class some-other-class').addClass('another-class');
+
+```
+
+##### Create your own Elements
+
+```
+const Icon = function(v) { return El('i').addClass('icon').attr('data-icon-type', v); }
+ 
+// create element
+let icon = Icon('arrow-up')
+ 
+// get data-icon-type 
+icon.dataset.iconType
+```
+
+##### Extend Elements
+
+```
+const IconBig = function(v) { return Icon(v).addClass('icon-big') };
 ```
