@@ -69,9 +69,11 @@ const Elements = {
 /**
  * Remove element from parent node
  */
-Element.prototype.remove = function() {
-    this.parentNode.removeChild(this);
-};
+if (typeof Element.prototype.remove !== 'function') {
+    Element.prototype.remove = function() {
+        this.parentNode.removeChild(this);
+    };
+}
 
 /**
  * Remove elements children
@@ -142,17 +144,26 @@ Element.prototype.forEach = function(callback) {
  * @param element {Element|String|Number} - the data to append
  * @return {Element} - return this (the element who called the function)
  */
-Element.prototype.append = function(element) {
-    if (element instanceof Element) {
-        this.appendChild(element);
+const nativeAppend = Element.prototype.append;
+if (typeof nativeAppend !== 'function') {
+    Element.prototype.append = function(element) {
+        if (element instanceof Element) {
+            this.appendChild(element);
+            return this;
+        } else if (typeof element === 'string' || typeof element === 'number') {
+            this.text(element);
+            return this;
+        }
+
         return this;
-    } else if (typeof element === 'string' || typeof element === 'number') {
-        this.text(element);
+    };
+} else {
+    Element.prototype.append = function(...element) {
+        nativeAppend.call(this, ...element);
+
         return this;
     }
-
-    return this;
-};
+}
 
 /**
  * Override the element inner HTML with the given element data
@@ -163,11 +174,6 @@ Element.prototype.append = function(element) {
 Element.prototype.html = function(element) {
     this.innerHTML = '';
 
-    if (typeof element === 'string' || typeof element === 'number') {
-        this.innerHTML = element;
-        return this;
-    }
-
     return this.append(element);
 };
 
@@ -177,13 +183,22 @@ Element.prototype.html = function(element) {
  * @param element {Element} - the element to prepend
  * @return {Element} - return this (the element who called the function)
  */
-Element.prototype.prepend = function(element) {
-    if (element instanceof Element) {
-        this.insertBefore(element, this.firstChild)
-    }
+const nativePrepend = Element.prototype.prepend;
+if (typeof nativePrepend !== 'function') {
+    Element.prototype.prepend = function(element) {
+        if (element instanceof Element) {
+            this.insertBefore(element, this.firstChild)
+        }
 
-    return this;
-};
+        return this;
+    };
+} else {
+    Element.prototype.prepend = function(...element) {
+        nativePrepend.call(this, ...element);
+
+        return this;
+    };
+}
 
 /**
  * Query elements different from the given element
