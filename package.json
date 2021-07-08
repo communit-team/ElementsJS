@@ -1,0 +1,26 @@
+{
+  "name": "elements_js",
+  "version": "1.0.0",
+  "description": "A lightweight DOM Manipulation library for VanillaJS",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^9.0.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://AQUANGEL@github.com/communit-team/ElementsJS.git"
+  },
+  "author": "Roee Sheelo & Tomer Twena",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/communit-team/ElementsJS/issues"
+  },
+  "homepage": "https://github.com/communit-team/ElementsJS#readme"
+}
